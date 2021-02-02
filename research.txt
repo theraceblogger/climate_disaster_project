@@ -44,3 +44,5 @@ https://www.science.gov/topicpages/e/earthquakes+suggests+fractal
 
 Kaggle - LANL Earthquake Prediction : Fresh EDA; by Tarun Paparaju
 https://www.kaggle.com/tarunpaparaju/lanl-earthquake-prediction-fresh-eda
+
+https://climate.nasa.gov/effects/
