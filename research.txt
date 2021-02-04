@@ -16,6 +16,9 @@ https://en.wikipedia.org/wiki/List_of_natural_disasters_by_death_toll
 NOAA data
 https://www.ncdc.noaa.gov/cdo-web/webservices/v2#gettingStarted
 
+NOAA data AWS
+https://docs.opendata.aws/noaa-ghcn-pds/readme.html
+
 EMDAT data
 https://public.emdat.be/data
 
