@@ -22,6 +22,9 @@ https://docs.opendata.aws/noaa-ghcn-pds/readme.html
 EMDAT data
 https://public.emdat.be/data
 
+WHO data
+https://www.who.int/data/gho/info/gho-odata-api
+
 Stack Abuse - Getting Started with Python's Wikipedia API
 https://stackabuse.com/getting-started-with-pythons-wikipedia-api/
 
