@@ -2,7 +2,8 @@ Climate Disaster Project
 
 This project entails gathering data from NOAA and EM-DAT (and maybe others) through api's, 
 create and populate this database with that data, 
-and perform analytics on it.
+and perform analytics on it. I am using Google Cloud Platform with a Postrgres database.
+
 
 This will be automated with Airflow and have Git for version control.
 
