@@ -21,6 +21,7 @@ https://docs.opendata.aws/noaa-ghcn-pds/readme.html
 
 EMDAT data
 https://public.emdat.be/data
+https://www.emdat.be/guidelines
 
 WHO data
 https://www.who.int/data/gho/info/gho-odata-api
