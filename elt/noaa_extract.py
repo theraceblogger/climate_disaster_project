@@ -7,7 +7,7 @@
 
 import requests
 import datetime
-noaa_token='yGrMiddFDpDUvEPTGrOUtSAdnEoQiWFD'
+noaa_token=''
 
 
 # Set variables
