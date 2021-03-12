@@ -11,7 +11,6 @@
 import requests
 import datetime
 import json
-import time
 noaa_token=''
 
 
