@@ -1,35 +1,48 @@
-## This script gets data from NOAA, stores it in file '/Users/chuckschultz/work/data/dump.xlsx' and logs the transaction
+## This script gets data from NOAA, stores it in file '/Users/chuckschultz/work/data/noaa_dump.json' and logs the transaction
 ## Variables needed for api call:
-##   classif: (list)type of disasters - concatenate using +
-##   iso: (list)countries of disasters - concatenate using +
-##   from: (int)start date - 1900 to 2021
-##   to: (int)end date - 1900 to 2021
+##   dataset_id: (string)
+##   data_types: (string)
+##   locations: (string)
+##   stations: (string)
 
 import requests
 import datetime
-noaa_token=''
+import json
+noaa_token='yGrMiddFDpDUvEPTGrOUtSAdnEoQiWFD'
 
 
 # Set variables
-base_url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/data"
+base_url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations"
 dataset_id = "?datasetid=GHCND"
-data_types = []
-locations = []
-stations = []
+data_types = ""
+locations = ""
+stations = ""
 
-
-
-
-# Extract NOAA data
-def get_noaa_data():
+# Function gets NOAA data, store in file '/Users/chuckschultz/work/data/noaa_dump.json' and
+# log transaction in file '/Users/chuckschultz/work/data/noaa.log'
+def get_noaa():
+  off = 1
   try:
-    #noaa_token = os.environ['noaa_token']
-    header = {'token': noaa_token}
-    url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&locationid=ZIP:80455&startdate=2020-01-01&enddate=2020-01-31&limit=10"
-    r = requests.get(url, headers=header)
-    print(r.content)
-  except:
-    print('You fucked something up!')
-    traceback.print_exc()
+    for batch in range(2):
+      offset = "&offset=" + str(off)
+      header = {'token': noaa_token}
+      url = base_url + dataset_id + data_types + locations + stations + offset
+      dump = requests.get(url, headers=header)
+      
+      with open('/Users/chuckschultz/work/data/noaa_dump.json', 'wb') as file: # store data in file
+        file.write(dump.content)
+      
+      with open('/Users/chuckschultz/work/data/noaa_dump.json', 'r') as file: # read data to get metadata
+        json_data = json.loads(file.read())
+        print("Link: " + url + "\nCount: " + str(json_data["metadata"]["resultset"]["count"]))
 
-get_noaa_data()
+        with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction in file
+          file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nCount: " + str(json_data["metadata"]["resultset"]["count"]) + "\n")
+      off += 25
+  
+  except TypeError: # If there are no results
+    print("Count:", None)
+    with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction in file
+        file.write(str(datetime.datetime.now()) + "\nCount: None")
+
+get_noaa()
