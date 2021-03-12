@@ -1,5 +1,5 @@
-## This script gets 118,487 stations data from NOAA,
-## stores it in file '/Users/chuckschultz/work/data/station_dump.json' and logs the transaction
+## This script gets 118,487 stations data from NOAA, stores it in file
+## '/Users/chuckschultz/work/data/station_dump.json' and logs the transaction
 import requests
 import datetime
 import json
@@ -25,19 +25,20 @@ def get_noaa_stations():
             url = base_url + dataset_id + limit + offset
             dump = requests.get(url, headers=header)
       
-            with open('/Users/chuckschultz/work/data/station_dump.json', 'wb') as file: # store data in file
+            with open('/Users/chuckschultz/work/data/station_dump.json', 'wb') as file: # store data
                 file.write(dump.content)
             json_data = json.loads(dump.content)
             count = json_data["metadata"]["resultset"]["count"]
             print("Link: " + url + "\nBatch: " + str(batch + 1) + " of 119" + "\tCount: " + str(count))
                         
-            with open('/Users/chuckschultz/work/data/noaa_stations.log', 'a') as file: # log transaction in file
-                file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + str(batch + 1) + " of 119" + "\tCount: " + str(count) + "\n")
+            with open('/Users/chuckschultz/work/data/noaa_stations.log', 'a') as file: # log transaction
+                file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + \
+                    str(batch + 1) + " of 119" + "\tCount: " + str(count) + "\n")
             off += 1000
   
     except TypeError: # If there are no results
         print("Count:", None)
-        with open('/Users/chuckschultz/work/data/noaa_stations.log', 'a') as file: # log transaction in file
+        with open('/Users/chuckschultz/work/data/noaa_stations.log', 'a') as file: # log transaction
             file.write(str(datetime.datetime.now()) + "\nCount: None")
 
 get_noaa_stations()

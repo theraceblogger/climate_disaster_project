@@ -1,7 +1,8 @@
-## This script gets data from NOAA, stores it in file '/Users/chuckschultz/work/data/noaa_dump.json' and logs the transaction
+## This script gets data from NOAA, stores it in file
+## '/Users/chuckschultz/work/data/noaa_dump.json' and logs the transaction.
 ## Variables needed for api call:
 ##   dataset_id: (string) types of datasets GHCND is for Daily Summaries
-##   data_types: (string) data labels (example TMIN, TMAX for minimum temperature and maximum temperature)
+##   data_types: (string) data labels (examples: TMIN, TMAX)
 ##   locations: (string) cities
 ##   stations: (string) weather station data
 ##   start_date: (string) query start date
@@ -30,13 +31,14 @@ limit = "&limit=1000"
 def get_count():
     try:
         limit = "&limit=1"
-        url = base_url + dataset_id + data_types + locations + stations + start_date + end_date + limit
+        url = base_url + dataset_id + data_types + locations + \
+          stations + start_date + end_date + limit
         dump = requests.get(url, headers=header)
         json_data = json.loads(dump.content)
         return json_data["metadata"]["resultset"]["count"]
     except TypeError: # If there are no results
         print("Count:", None)
-        with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction in file
+        with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction
             file.write(str(datetime.datetime.now()) + "\nCount: None")
         return 0
 
@@ -51,27 +53,29 @@ elif count % 1000 == 0:
 else:
     iterations = count//1000 + 1
 
-# Function gets NOAA data, store in file '/Users/chuckschultz/work/data/noaa_dump.json' and
-# log transaction in file '/Users/chuckschultz/work/data/noaa.log'
+# Function gets NOAA data, store in file '/Users/chuckschultz/work/data/noaa_dump.json'
+# and log transaction in file '/Users/chuckschultz/work/data/noaa.log'
 def get_noaa():
     off = 1
     try:
         for batch in range(iterations):
             time.sleep(10)
             offset = "&offset=" + str(off)
-            url = base_url + dataset_id + data_types + locations + stations + start_date + end_date + limit + offset
+            url = base_url + dataset_id + data_types + locations + \
+              stations + start_date + end_date + limit + offset
             dump = requests.get(url, headers=header)
       
-            with open('/Users/chuckschultz/work/data/noaa_dump.json', 'wb') as file: # store data in file
+            with open('/Users/chuckschultz/work/data/noaa_dump.json', 'wb') as file: # store data
                 file.write(dump.content)
-                print("Link: " + url + "\nBatch: " + str(batch + 1) + " of " + str(iterations) + "\tCount: " + str(count))
+                print("Link: " + url + "\nBatch: " + str(batch + 1) + " of " + \
+                  str(iterations) + "\tCount: " + str(count))
 
-                with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction in file
-                    file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + str(batch + 1) + " of " + \
-                      str(iterations) + "\tCount: " + str(count) + "\n")
+                with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction
+                    file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + \
+                      str(batch + 1) + " of " + str(iterations) + "\tCount: " + str(count) + "\n")
             off += 1000  
     except:
-        with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction in file
+        with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction
             file.write(str(datetime.datetime.now()) + "\nError")
         raise Exception("Error")
 
