@@ -77,10 +77,10 @@ url = 'https://public.emdat.be/api/graphql'
 headers = {"auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNTQxMCwidXNlcm5hbWUiOiJ0aGVyYWNlYmxvZ2dlciJ9.jl04tgSr0ESF3hwgp8AmKQXuODrVOqKcJSrRNAnvj_E"}
 opName = "emdat_public"
 varz =  {
-	"classif": storm + heat_wave,
-	"iso": asia,
-    "from": 1953,
-	"to": 1994
+	"classif": storm + heat_wave, # (list)type of disasters - concatenate using +
+	"iso": asia, # (list)countries of disasters - concatenate using +
+    "from": 1953, #(int)start date - 1900 to 2021
+	"to": 1994 # (int)end date - 1900 to 2021
 }
 
 # Function using GraphQL to make the API call for link to data API
