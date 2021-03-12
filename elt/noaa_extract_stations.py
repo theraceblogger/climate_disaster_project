@@ -29,11 +29,11 @@ def get_noaa_stations():
                 file.write(dump.content)
             json_data = json.loads(dump.content)
             count = json_data["metadata"]["resultset"]["count"]
-            print("Link: " + url + "\nBatch: " + str(batch + 1) + " of 119" + "\tCount: " + str(count))
+            print("Link:", url, "\nBatch:", str(batch + 1), " of 119 \tCount:", str(count))
                         
             with open('/Users/chuckschultz/work/data/noaa_stations.log', 'a') as file: # log transaction
                 file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + \
-                    str(batch + 1) + " of 119" + "\tCount: " + str(count) + "\n")
+                    str(batch + 1) + " of 119 \tCount: " + str(count) + "\n")
             off += 1000
   
     except TypeError: # If there are no results

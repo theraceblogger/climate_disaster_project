@@ -1,4 +1,5 @@
-## This script gets data from EMDAT, stores it in file '/Users/chuckschultz/work/data/emdat_dump.xlsx' and logs the transaction
+## This script gets data from EMDAT, stores it in file
+## '/Users/chuckschultz/work/data/emdat_dump.xlsx' and logs the transaction
 ## Variables needed for api call:
 ##   classif: (list)type of disasters - concatenate using +
 ##   iso: (list)countries of disasters - concatenate using +
@@ -39,29 +40,38 @@ famine = ["3"]
 ## iso
 # Asia
 southern_asia = ["AFG", "BGD", "BTN", "IND", "IRN", "LKA", "MDV", "NPL", "PAK"]
-western_asia = ["ARE", "ARM", "AZE", "BHR", "CYP", "GEO", "IRQ", "ISR", "JOR", "KWT", "LBN", "OMN", "PSE", "QAT", "SAU", "SYR", "TUR", "YEM", "YMD", "YMN"]
-southeastern_asia = ["BRN", "IDN", "KHM", "LAO", "MMR", "MYS", "PHL", "SGP", "THA", "VNM", "TLS"]
+western_asia = ["ARE", "ARM", "AZE", "BHR", "CYP", "GEO", "IRQ", "ISR", "JOR",\
+    "KWT", "LBN", "OMN", "PSE", "QAT", "SAU", "SYR", "TUR", "YEM", "YMD", "YMN"]
+southeastern_asia = ["BRN", "IDN", "KHM", "LAO", "MMR", "MYS", "PHL", "SGP",\
+    "THA", "VNM", "TLS"]
 eastern_asia = ["CHN", "HKG", "JPN", "KOR", "MAC", "MNG", "PRK", "TWN"]
 central_asia = ["KAZ", "KGZ", "TJK", "TKM", "UZB"]
 asia = southern_asia + western_asia + southeastern_asia + eastern_asia + central_asia
 # Africa
 middle_africa = ["AGO", "CAF", "CMR", "COG", "GAB", "GNQ", "STP", "TCD", "COD"]
-eastern_africa = ["BDI", "COM", "DJI", "ERI", "ETH", "KEN", "MDG", "MOZ", "MUS", "MWI", "REU", "RWA", "SOM", "SYC", "TZA", "UGA", "ZMB", "ZWE", "MYT", "ATF", "IOT"]
-western_africa = ["BEN", "BFA", "CIV", "CPV", "GHA", "GIN", "GMB", "GNB", "LBR", "MLI", "MRT", "NER", "NGA", "SEN", "SHN", "SLE", "TGO"]
+eastern_africa = ["BDI", "COM", "DJI", "ERI", "ETH", "KEN", "MDG", "MOZ", "MUS",\
+    "MWI", "REU", "RWA", "SOM", "SYC", "TZA", "UGA", "ZMB", "ZWE", "MYT", "ATF", "IOT"]
+western_africa = ["BEN", "BFA", "CIV", "CPV", "GHA", "GIN", "GMB", "GNB", "LBR",\
+    "MLI", "MRT", "NER", "NGA", "SEN", "SHN", "SLE", "TGO"]
 southern_africa = ["BWA", "LSO", "NAM", "SWZ", "ZAF"]
 northern_africa = ["DZA", "EGY", "ESH", "LBY", "MAR", "SDN", "TUN", "SSD"]
 africa = middle_africa + eastern_africa + western_africa + southern_africa + northern_africa
 # Americas
-caribbean = ["AIA", "ANT", "ATG", "BHS", "BRB", "CUB", "CYM", "DMA", "DOM", "GLP", "GRD", "HTI", "JAM", "KNA", "LCA", "MSR", "MTQ", "PRI", "TCA", "TTO", "VCT", "VGB", "VIR", "ABW", "BES", "BLM", "CUW", "MAF", "SXM"]
-south_america = ["ARG", "BOL", "BRA", "CHL", "COL", "ECU", "FLK", "GUF", "GUY", "PER", "PRY", "SUR", "URY", "VEN", "BVT", "SGS"]
+caribbean = ["AIA", "ANT", "ATG", "BHS", "BRB", "CUB", "CYM", "DMA", "DOM", "GLP",\
+    "GRD", "HTI", "JAM", "KNA", "LCA", "MSR", "MTQ", "PRI", "TCA", "TTO", "VCT", "VGB",\
+        "VIR", "ABW", "BES", "BLM", "CUW", "MAF", "SXM"]
+south_america = ["ARG", "BOL", "BRA", "CHL", "COL", "ECU", "FLK", "GUF", "GUY", "PER",\
+    "PRY", "SUR", "URY", "VEN", "BVT", "SGS"]
 central_america = ["BLZ", "CRI", "GTM", "HND", "MEX", "NIC", "PAN", "SLV"]
 northern_america = ["BMU", "CAN", "GRL", "SPM", "USA"]
 americas = caribbean + south_america + central_america + northern_america
 # Europe
-southern_europe = ["ALB", "AND", "AZO", "BIH", "ESP", "GIB", "GRC", "HRV", "ITA", "MKD", "MLT", "PRT", "SMR", "SPI", "SCG", "SVN", "VAT", "YUG", "SRB", "MNE"]
+southern_europe = ["ALB", "AND", "AZO", "BIH", "ESP", "GIB", "GRC", "HRV", "ITA", "MKD",\
+    "MLT", "PRT", "SMR", "SPI", "SCG", "SVN", "VAT", "YUG", "SRB", "MNE"]
 western_europe = ["AUT", "BEL", "CHE", "DDR", "DEU", "DFR", "FRA", "LIE", "LUX", "MCO", "NLD"]
 eastern_europe = ["BGR", "BLR", "CSK", "CZE", "HUN", "MDA", "POL", "ROU", "RUS", "SVK", "UKR"]
-northern_europe = ["CHA", "DNK", "EST", "FIN", "FRO", "GBR", "IRL", "ISL", "LTU", "LVA", "IMN", "NOR", "SWE", "SJM", "ALA", "GGY", "JEY"]
+northern_europe = ["CHA", "DNK", "EST", "FIN", "FRO", "GBR", "IRL", "ISL", "LTU", "LVA",\
+    "IMN", "NOR", "SWE", "SJM", "ALA", "GGY", "JEY"]
 russian_federation = ["SUN"]
 europe = southern_europe + western_europe + eastern_europe + northern_europe + russian_federation
 # Oceania
@@ -99,18 +109,19 @@ result = run_query(query)
 # log transaction in file '/Users/chuckschultz/work/data/emdat.log'
 def get_emdat():
     try:
-        link_to_hit = result["data"]["emdat_public"]["link"] # drill down the dictionary for link
+        link_to_hit = result["data"]["emdat_public"]["link"]
         dump = requests.get(link_to_hit, headers=headers)
-        print("Link:", link_to_hit, "\nCount:", result["data"]["emdat_public"]["count"])
+        count = result["data"]["emdat_public"]["count"]
+        print("Link:", link_to_hit, "\nCount:", count)
         
-        with open('/Users/chuckschultz/work/data/emdat_dump.xlsx', 'wb') as file: # store data in file
+        with open('/Users/chuckschultz/work/data/emdat_dump.xlsx', 'wb') as file: # store data
             file.write(dump.content)
-        with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction in file
-            file.write(str(datetime.datetime.now()) + "\nLink: " + link_to_hit + "\nCount: " + str(result["data"]["emdat_public"]["count"]))
+        with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction
+            file.write(str(datetime.datetime.now()), "\nLink:", link_to_hit, "\nCount:", str(count))
 
     except TypeError: # If there are no results
         print("Count:", None)
-        with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction in file
-            file.write(str(datetime.datetime.now()) + "\nCount: None")
+        with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction
+            file.write(str(datetime.datetime.now()), "\nCount: None")
 
 get_emdat()

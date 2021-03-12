@@ -67,8 +67,8 @@ def get_noaa():
       
             with open('/Users/chuckschultz/work/data/noaa_dump.json', 'wb') as file: # store data
                 file.write(dump.content)
-                print("Link: " + url + "\nBatch: " + str(batch + 1) + " of " + \
-                  str(iterations) + "\tCount: " + str(count))
+                print("Link:", url, "\nBatch:", str(batch + 1), " of ", \
+                  str(iterations), "\tCount:", str(count))
 
                 with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction
                     file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + \
