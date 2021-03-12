@@ -64,15 +64,12 @@ def get_noaa():
       
             with open('/Users/chuckschultz/work/data/noaa_dump.json', 'wb') as file: # store data in file
                 file.write(dump.content)
-      
-            with open('/Users/chuckschultz/work/data/noaa_dump.json', 'r') as file: # read data to get metadata
-                json_data = json.loads(file.read())
-                print("Link: " + url + "\nBatch: " + str(batch + 1) + " of " + str(iterations) + "\tCount: " + str(json_data["metadata"]["resultset"]["count"]))
+                print("Link: " + url + "\nBatch: " + str(batch + 1) + " of " + str(iterations) + "\tCount: " + str(count))
 
                 with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction in file
-                    file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + str(batch + 1) + " of " + str(iterations) + "\tCount: " + str(json_data["metadata"]["resultset"]["count"]) + "\n")
-            off += 1000
-  
+                    file.write(str(datetime.datetime.now()) + "\nLink: " + url + "\nBatch: " + str(batch + 1) + " of " + \
+                      str(iterations) + "\tCount: " + str(count) + "\n")
+            off += 1000  
     except:
         with open('/Users/chuckschultz/work/data/noaa.log', 'a') as file: # log transaction in file
             file.write(str(datetime.datetime.now()) + "\nError")
