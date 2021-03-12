@@ -1,4 +1,4 @@
-## This script gets data from EMDAT, stores it in file '/Users/chuckschultz/work/data/dump.xlsx' and logs the transaction
+## This script gets data from EMDAT, stores it in file '/Users/chuckschultz/work/data/emdat_dump.xlsx' and logs the transaction
 ## Variables needed for api call:
 ##   classif: (list)type of disasters - concatenate using +
 ##   iso: (list)countries of disasters - concatenate using +
@@ -71,18 +71,19 @@ melanesia = ["FJI", "NCL", "PNG", "SLB", "VUT"]
 micronesia = ["FSM", "GUM", "KIR", "MHL", "NRU", "PLW", "MNP", "UMI"]
 oceania = polynesia + australia_new_zealand + melanesia + micronesia
 
+
 # Set variables
 url = 'https://public.emdat.be/api/graphql'
 headers = {"auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNTQxMCwidXNlcm5hbWUiOiJ0aGVyYWNlYmxvZ2dlciJ9.jl04tgSr0ESF3hwgp8AmKQXuODrVOqKcJSrRNAnvj_E"}
 opName = "emdat_public"
 varz =  {
 	"classif": storm + heat_wave,
-	"iso": ["CHA"],
+	"iso": asia,
     "from": 1953,
 	"to": 1994
 }
 
-# A function to use requests.post to make the API call
+# Function using GraphQL to make the API call for link to data API
 def run_query(query):
     request = requests.post(url, json={"query": query, "operationName": opName, "variables": varz}, headers=headers)
     if request.status_code == 200:
@@ -94,20 +95,22 @@ def run_query(query):
 query = "mutation emdat_public($classif: [String!], $iso: [String!], $from: Int, $to: Int) {\n  emdat_public(classif: $classif, iso: $iso, from: $from, to: $to) {\n    count\n    link\n    xlsx\n  }\n}\n"
 result = run_query(query)
 
-# Drill down the dictionary for link, get data, store in file '/Users/chuckschultz/work/data/dump.xlsx',
+# Function to get data, store in file '/Users/chuckschultz/work/data/emdat_dump.xlsx' and
 # log transaction in file '/Users/chuckschultz/work/data/emdat.log'
-try:
-    link_to_hit = result["data"]["emdat_public"]["link"]
-    print("Link:", link_to_hit, "\nCount:", result["data"]["emdat_public"]["count"])
-    dump = requests.get(link_to_hit, headers=headers)
-    
-    with open('/Users/chuckschultz/work/data/dump.xlsx', 'wb') as file: # store data in file
-        file.write(dump.content)
-    with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction in file
-        file.write(str(datetime.datetime.now()) + "\nLink: " + link_to_hit + "\nCount: " + str(result["data"]["emdat_public"]["count"]))
+def get_emdat():
+    try:
+        link_to_hit = result["data"]["emdat_public"]["link"] # drill down the dictionary for link
+        dump = requests.get(link_to_hit, headers=headers)
+        print("Link:", link_to_hit, "\nCount:", result["data"]["emdat_public"]["count"])
+        
+        with open('/Users/chuckschultz/work/data/emdat_dump.xlsx', 'wb') as file: # store data in file
+            file.write(dump.content)
+        with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction in file
+            file.write(str(datetime.datetime.now()) + "\nLink: " + link_to_hit + "\nCount: " + str(result["data"]["emdat_public"]["count"]))
 
-except TypeError: # If there are no results
-    print("Count:", None)
-    with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction in file
-        file.write(str(datetime.datetime.now()) + "\nCount: None")
+    except TypeError: # If there are no results
+        print("Count:", None)
+        with open('/Users/chuckschultz/work/data/emdat.log', 'a') as file: # log transaction in file
+            file.write(str(datetime.datetime.now()) + "\nCount: None")
 
+get_emdat()
