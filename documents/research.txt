@@ -13,6 +13,9 @@ https://en.wikipedia.org/wiki/List_of_disasters_by_cost
 Wikipedia - List of natural disasters by death toll
 https://en.wikipedia.org/wiki/List_of_natural_disasters_by_death_toll
 
+An Analytical Review of Selected Data Sets on Natural Disasters and Impacts - March 2006
+https://reliefweb.int/sites/reliefweb.int/files/resources/E8C77BAB463772B585257264006328EA-undp-datasets-mar06.pdf
+
 NOAA data
 https://www.ncdc.noaa.gov/cdo-web/webservices/v2#gettingStarted
 
